@@ -1,94 +1,48 @@
-# 📚 Anotaki!
+# Anotaqui
 
-Organize sua vida acadêmica em um único lugar.
+Anotaqui é um programa para fazer anotações no computador. Você escreve uma nota e ela fica salva como um arquivo de texto (Markdown). Dá para organizar as notas por tags, buscar por palavras e exportar para PDF ou HTML.
 
-O **Anotaki!** é uma plataforma web criada para ajudar estudantes a gerenciar tarefas, anotações, horários de aula e desempenho escolar de forma simples, rápida e intuitiva. Tudo funciona diretamente no navegador, sem necessidade de cadastro ou instalação.
+## Como usar
 
-## ✨ Funcionalidades
+Você precisa ter Python instalado.
 
-### 📌 Gerenciamento de Tarefas
+1. Baixe o código:
 
-* Criar, editar e excluir tarefas
-* Definir datas de entrega
-* Marcar atividades como concluídas
-* Identificar tarefas atrasadas automaticamente
-* Filtrar tarefas por matéria e status
+   git clone https://github.com/MiguelReis944/Anotaqui.git
+   cd Anotaqui
 
-### 📝 Anotações Avançadas
+2. Instale as dependências:
 
-* Editor de texto rico com Quill.js
-* Formatação de texto (negrito, itálico, listas, cores e tamanhos)
-* Organização de conteúdos e resumos
-* Edição e exclusão de anotações
+   pip install -r requirements.txt
 
-### 📅 Quadro de Horários
+3. Inicie o servidor para abrir no navegador:
 
-* Criação personalizada do horário de aulas
-* Edição livre das disciplinas
-* Salvamento automático das alterações
+   python anotaqui.py serve --port 8080
 
-### 📊 Dashboard do Aluno
+   Depois acesse http://localhost:8080
 
-* Estatísticas de produtividade
-* Resumo das tarefas cadastradas
-* Visualização rápida das atividades pendentes
-* Mini calendário com tarefas do mês
+Também dá para usar direto pelo terminal:
 
-### 📈 Boletim Escolar
+   python anotaqui.py add "Minha primeira nota" --tags estudo
+   python anotaqui.py list --tag estudo
+   python anotaqui.py export 1 --format pdf
 
-* Cadastro de matérias
-* Registro de avaliações
-* Organização das notas em tabelas personalizadas
+## Onde as notas ficam
 
-### 🌙 Temas
+As notas são salvas na pasta `~/notas` por padrão. Cada nota é um arquivo `.md` com metadados no topo (título, data, tags). Você pode editar os arquivos com qualquer editor de texto.
 
-* Modo escuro
-* Modo claro
-* Alteração instantânea da interface
+## Configuração
 
-### 💾 Salvamento Automático
+Se quiser mudar a pasta ou outras opções, crie um arquivo `~/.anotaqui/config.yaml`:
 
-* Dados armazenados localmente com LocalStorage
-* Nenhuma conta necessária
-* Informações preservadas mesmo após fechar o navegador
+   storage: ~/Documentos/notas
+   editor: code
+   theme: light
 
-## 🎯 Objetivo
+## Contribuindo
 
-O Anotaki! nasceu com o objetivo de centralizar as principais ferramentas de organização acadêmica em uma única plataforma, eliminando a necessidade de utilizar vários aplicativos diferentes para controlar estudos, tarefas e horários.
+Se quiser ajudar, pode abrir uma issue ou enviar um pull request.
 
-## 🛠 Tecnologias Utilizadas
+## Licença
 
-* HTML5
-* CSS3
-* JavaScript
-* Quill.js
-* LocalStorage
-
-## 🚀 Principais Diferenciais
-
-* Interface intuitiva e moderna
-* Funcionamento totalmente offline após carregado
-* Sem necessidade de cadastro
-* Gratuito
-* Focado em produtividade estudantil
-* Organização completa em um único sistema
-
-## 📷 Recursos Disponíveis
-
-✅ Dashboard acadêmico
-
-✅ Gerenciador de tarefas
-
-✅ Sistema de anotações
-
-✅ Calendário de atividades
-
-✅ Quadro de horários
-
-✅ Boletim escolar
-
-✅ Modo escuro e claro
-
----
-
-**Anotaki!** foi desenvolvido para transformar a organização dos estudos em uma experiência simples, eficiente e acessível para qualquer estudante.
+MIT

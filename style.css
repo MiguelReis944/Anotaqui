@@ -1,0 +1,823 @@
+/* cores usadas (AZUIS - NÃO VAI USAR MAIS):
+        1. #11b4f5
+        2. #83dcff
+        */
+
+/* link de outras imagens boas
+        https://cdn-icons-png.freepik.com/512/9136/9136066.png?ga=GA1.1.180720129.1748087712 (calendário)
+        */
+
+/* +safada[ */
+/*
+                <label>Tipo da tarefa</label>
+                <select name="tipoT" id="tipoT">
+                    <option>Lição</option>
+                    <option>Prova</option>
+                    <option>Trabalho</option>
+                    <option>Estudo</option>
+                </select><br>
+        */
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    user-select: none;
+}
+
+:root {
+    /* CORES MODO ESCURO */
+    /* Essa é a cor principal do site */
+    --corPrincipal: #8b12c4;
+    /* Cor usada em botôes active (clicados) */
+    --corSecundaria: #5a0e7e;
+    /* Fundo mais claro */
+    --fundoPrincipal: #1a252e;
+    /* Fundo um tanto mais escuro */
+    --fundoSecundario: #131b22;
+    /* Meio termo, usado nas opções não selecionadas (tarefas, anotações e quadro de aulas) */
+    --fundoTerciario: #162129;
+    /* Cor de fundo da tabela de horários */
+    --tabela: black;
+    /* Textos principais, mais escuros, como títulos */
+    --textoPrincipal: rgba(255, 255, 255, 0.8);
+    /* Textos mais apagados, como descrição de tarefa */
+    --textoSecundario: rgba(255, 255, 255, 0.7);
+    /* Textos ainda mais apagados, como data estipulada */
+    --textoTerciario: rgba(219, 219, 219, 0.8);
+    /* Textos brancos, usados dentro de botões/fundos coloridos/escuros */
+    --textoClaro: black;
+    /* Cor do triângulo cinza */
+    --corTriangulo: transparent transparent transparent rgba(177, 177, 177, 0.897);
+    /* Bordas dos inputs */
+    --inputBordas: #ffffff54;
+    /* Bordas dos inputs selecionados */
+    --inputBordasSec: #ffffff;
+    /* Bordas tarefas e afins */
+    --tarefasBordas: #9696967a;
+    /* Sombras do site, tipo as de baixo do cabeçalho */
+    --sombras: #0000007e;
+}
+
+
+
+body,
+.opcoes,
+.direita {
+    background-color: var(--fundoSecundario);
+    color: var(--textoPrincipal);
+}
+
+.cabecalho {
+    max-height: 8.5vh;
+    width: 100%;
+    background: var(--corPrincipal);
+    display: flex;
+    padding: 1vh 1vw;
+    align-items: center;
+    position: fixed;
+    top: 0px;
+    z-index: 10;
+    box-shadow: 0px 0px 10px 0px var(--sombras);
+}
+
+.logo {
+    height: 6.75vh;
+    margin-right: .5%;
+}
+
+.cabecalho h1 {
+    font-size: 200%;
+    color: #e7e7e7;
+    font-family: Itim;
+    font-weight: bold;
+}
+
+.div-que-existe-unicamente-para-deixar-a-parte-esquerda-e-direita-uma-do-lado-da-outra {
+    display: flex;
+}
+
+.direita,
+.esquerda {
+    min-height: 90vh;
+    padding: 30px;
+}
+
+
+
+.direita {
+    width: 55%;
+    position: fixed;
+    top: 8vh;
+    left: 45%;
+    overflow-y: scroll;
+    max-height: 92vh;
+    min-height: 92vh;
+    gap: 10px;
+    transition: 0.25s;
+}
+
+.direita::-webkit-scrollbar {
+    display: none;
+}
+
+.esquerda {
+    width: 40%;
+    background: var(--fundoPrincipal);
+    position: fixed;
+    top: 8vh;
+    left: 0%;
+    min-height: 92vh;
+    transition: 0.25s;
+}
+
+.esquerda h2 {
+    color: var(--textoPrincipal);
+    font-size: 125%;
+    margin-left: 3%;
+    margin-top: -4.25%;
+}
+
+.esquerda label {
+    color: var(--textoPrincipal);
+    font-size: 90%;
+}
+
+.opcoes {
+    width: 5%;
+    position: fixed;
+    top: 7.85vh;
+    left: 40%;
+    height: 100vh;
+    background: var(--fundoSecundario);
+    background: linear-gradient(90deg, var(--sombras) -20%, var(--fundoSecundario) 7.5%);
+    padding-top: .5vh;
+    user-select: none;
+    transition: 0.25s;
+}
+
+.opcoes img {
+    height: 6vh;
+}
+
+.opcoes div {
+    width: 100%;
+    height: 10vh;
+    font-size: 40px;
+    margin: 5px 0px;
+    background-color: var(--fundoTerciario);
+    cursor: pointer;
+    border-radius: 0px 8px 8px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 10px 0px #0000003a;
+}
+
+#adT {
+    background-color: #010d18;
+}
+
+.tarefa {
+    min-height: 15vh;
+    width: 67.5%;
+    border: 1.25px solid var(--tarefasBordas);
+    padding: 15px 30px;
+    padding-right: 35px;
+    position: relative;
+    background-color: var(--fundoPrincipal);
+    border-radius: 5px;
+    box-shadow: -5px 5px 0px var(--corPrincipal);
+    text-align: justify;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    user-select: text;
+    margin-top: 3%;
+    display: block;
+    color: var(--textoPrincipal);
+}
+
+.tarefa h2 {
+    /* matéria */
+    color: var(--corPrincipal);
+    font-size: 1.5rem;
+}
+
+.tarefa h1 {
+    /* título */
+    font-size: 1.35rem;
+    margin-bottom: .5%;
+    color: var(--textoPrincipal);
+}
+
+
+
+.tarefa h3 {
+    /* data */
+    color: var(--textoTerciario);
+    font-size: 1rem;
+}
+
+.tarefa p {
+    /* descrição */
+    font-size: 1.25rem;
+    color: var(--textoSecundario);
+}
+
+
+
+.delete-btn {
+    position: absolute;
+    top: 2vh;
+    right: 1vw;
+    cursor: pointer;
+    border: none;
+    height: 2.75vh;
+    width: 2.75vh;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.delete-btn img,
+.edit-btn img {
+    height: 2.75vh;
+    width: 2.75vh;
+}
+
+.edit-btn {
+    position: absolute;
+    top: 2vh;
+    right: 3vw;
+    cursor: pointer;
+    border: none;
+    height: 2.75vh;
+    width: 2.75vh;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+
+#tabela-horarios,
+#tabela-notas {
+    width: 100%;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.tabela-horarios {
+    width: 95%;
+    max-width: 900px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    box-shadow: 0px 0px 10px 0px #0000003a;
+}
+
+.tabela-horarios th,
+.tabela-horarios td {
+    border: 1px solid #808080;
+    padding: 8px;
+    text-align: center;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    user-select: text;
+}
+
+.tabela-horarios th {
+    background-color: var(--corPrincipal);
+    color: #ffffff;
+    font-size: 12px;
+}
+
+.tabela-horarios td {
+    background-color: var(--tabela);
+    color: #ffffff;
+    font-size: 12px;
+}
+
+input,
+textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 20vh;
+    padding: 8px;
+    margin: 5px 0 15px 0;
+    border-radius: 4px;
+    user-select: text;
+}
+
+textarea {
+    height: 15vh;
+}
+
+input[type=text],
+input[type=date],
+input[type=number],
+textarea {
+    border: none;
+    box-shadow: 0px 0px 0px 1px var(--inputBordas);
+    color: var(--textoPrincipal);
+    font-size: 75%;
+    font-family: Arial;
+    font-weight: normal;
+    padding: .9%;
+    resize: none;
+}
+
+input[type=text]:focus,
+input[type=date]:focus,
+input[type=number]:focus,
+textarea:focus {
+    outline: 1.5px solid var(--inputBordasSec);
+    box-shadow: -3px 3px 0px var(--corPrincipal);
+    background-color: var(--fundoPrincipal);
+    font-size: 75%;
+}
+
+input[type=text],
+input[type=date],
+input[type=number],
+textarea {
+    background-color: var(--fundoPrincipal);
+}
+
+#secAnotacoes,
+#secAulas {
+    display: none;
+}
+
+.titulos {
+    margin-bottom: 5%;
+    margin-left: 2%;
+    color: var(--textoPrincipal);
+    font-size: 150%;
+}
+
+#adT {
+    background-color: var(--fundoPrincipal);
+    border: var(--corPrincipal);
+    border-right-width: 1.25vh;
+    border-right-style: solid;
+}
+
+#adM,
+#adC,
+#adL {
+    width: 70%;
+    height: 8vh;
+    font-size: 40px;
+    margin: 4px 0px;
+    margin-bottom: 0px;
+    background-color: var(--fundoPrincipal);
+    cursor: pointer;
+    border-radius: 0px 8px 8px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 10px 0px #00000025;
+}
+
+#adC {
+    margin-top: 12.75vh;
+}
+
+#adM img,
+#adC img,
+#adL img {
+    height: 4.5vh;
+}
+
+.botao {
+    display: block;
+    margin: 15px auto;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--corPrincipal);
+    box-shadow: 0px 0px 10px 0px #0000003a;
+    color: white;
+}
+
+.botao:active {
+    background-color: var(--corSecundaria);
+}
+
+#tarefas,
+#anotacoes {
+    z-index: 1;
+}
+
+.triangulo {
+    width: auto;
+    height: 0px;
+    border-style: solid;
+    border-width: 9px 9px 9px 9px;
+    border-color: transparent transparent transparent var(--corPrincipal);
+    line-height: 0px;
+    padding-left: 5px;
+    margin-bottom: 3%;
+    display: flex;
+}
+
+.triangulo h1 {
+    vertical-align: middle;
+    margin: 0;
+}
+
+.triangulo2 {
+    width: auto;
+    height: 0px;
+    border-style: solid;
+    border-width: 9px 9px 9px 9px;
+    border-color: var(--corTriangulo);
+    line-height: 0px;
+    padding-left: 5px;
+    align-content: center;
+}
+
+.triangulo2 h2 {
+    vertical-align: middle;
+    margin: 0;
+}
+
+#anotacoesPai,
+#horarioPai {
+    display: none;
+}
+
+#tarefas,
+#anotacoes {
+    justify-items: center;
+}
+
+.filtroPai {
+    position: fixed;
+    display: flex;
+    left: 96vw;
+    top: 8.5vh;
+    transition: 0.25s;
+}
+
+.todas {
+    position: fixed;
+    display: flex;
+    left: 96vw;
+    top: 17vh;
+    transition: 0.25s;
+}
+
+.pendentes {
+    position: fixed;
+    display: flex;
+    left: 96vw;
+    top: 25.5vh;
+    transition: 0.25s;
+}
+
+.emAtraso {
+    position: fixed;
+    display: flex;
+    left: 96vw;
+    top: 34vh;
+    transition: 0.25s;
+}
+
+.concluidas {
+    position: fixed;
+    display: flex;
+    left: 96vw;
+    top: 42.5vh;
+    transition: 0.25s;
+}
+
+#opF {
+    background-color: var(--fundoPrincipal);
+    width: 4vw;
+    height: 8vh;
+    z-index: 999;
+    border-radius: 8px 0px 0px 8px;
+    right: 0;
+    top: 1vh;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5vh;
+}
+
+#opF img {
+    height: 4.5vh;
+}
+
+.botao-filtro {
+    background-color: var(--fundoPrincipal);
+    width: 4vw;
+    height: 8vh;
+    z-index: 999;
+    border-radius: 8px 0px 0px 8px;
+    right: 0;
+    top: 1vh;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5vh;
+}
+
+.botao-filtro img {
+    height: 4.5vh;
+}
+
+#filtros {
+    height: 91.5vh;
+    width: 25vw;
+    background-color: var(--fundoPrincipal);
+    font-size: 90%;
+    padding: 5%;
+    overflow-y: scroll;
+    box-shadow: 0px 0px 10px 0px #00000025;
+}
+
+#filtros::-webkit-scrollbar {
+    display: none;
+}
+
+input[type=checkbox] {
+    width: 2vw;
+    max-width: 2vw;
+    min-width: 2vw;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+    min-height: 20vh;
+    background-color: var(--fundoPrincipal);
+    border: solid 2.5px var(--corPrincipal);
+    border-radius: 10px;
+    box-shadow: 0px 0px 0px 999999px #00000060;
+    display: none;
+    z-index: 1000;
+    padding: 20px;
+    text-align: center;
+}
+
+.popup h1 {
+    margin-bottom: 3vh;
+}
+
+.popB {
+    margin-top: 15px;
+    padding: 8px 15px;
+    background-color: var(--corPrincipal);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#modoNoturno {
+    cursor: pointer;
+    filter: saturate(0);
+    rotate: 315deg;
+}
+
+.ajuda {
+    height: 5.5vh;
+    position: fixed;
+    right: 2vh;
+    cursor: pointer;
+}
+
+#tutoras {
+    position: relative;
+    min-height: 75vh;
+    max-height: 75vh;
+    width: 75vw;
+    left: 12.5vw;
+    top: 12.5vh;
+    background-color: var(--fundoPrincipal);
+    box-shadow: 0px 0px 0px 999999px #00000060;
+    border-radius: 10px;
+    z-index: 99999;
+    padding: 4vh;
+    overflow-y: scroll;
+    padding-right: 25vh;
+    display: none;
+    border: solid 5px var(--corPrincipal);
+}
+
+#tutoras::-webkit-scrollbar {
+    display: none;
+}
+
+#tutoras h2,
+#tutoras h1 {
+    color: var(--textoPrincipal);
+}
+
+#tutoras p {
+    font-size: 115%;
+    margin-left: 2.5vh;
+    margin-top: -1.5vh;
+    margin-bottom: 10vh;
+    color: var(--textoSecundario);
+}
+
+.imgTutoras {
+    height: 6vh;
+    background-color: none;
+    vertical-align: top;
+    margin-top: -3vh;
+    margin-right: 2vh;
+    margin-left: 1.5vh;
+}
+
+.triangulo3 {
+    width: auto;
+    height: 0px;
+    border-style: solid;
+    border-width: 9px 9px 9px 9px;
+    border-color: var(--corTriangulo);
+    line-height: 0px;
+    padding-left: 5px;
+    align-content: center;
+    margin-top: 0vh;
+    margin-bottom: 6vh;
+}
+
+.sairTutorasX {
+    height: 4vh;
+    width: 4vh;
+    background-color: none;
+    position: absolute;
+    top: 2vh;
+    right: 2vh;
+    cursor: pointer;
+}
+
+.sairTutorasX img {
+    height: 4vh;
+    width: 4vh;
+}
+
+.botaoTutoras {
+    display: block;
+    margin: 15px auto;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--corPrincipal);
+    box-shadow: 0px 0px 10px 0px #0000003a;
+    color: white;
+    margin-left: 50%;
+    cursor: pointer;
+}
+
+.ql-toolbar {
+    background-color: var(--fundoPrincipal);
+    border: 1px solid var(--inputBordas) !important;
+    border-radius: 4px 4px 0 0;
+}
+
+.ql-container {
+    border: 1px solid var(--inputBordas) !important;
+    border-top: none !important;
+    border-radius: 0 0 4px 4px;
+    background-color: var(--fundoPrincipal);
+}
+
+.ql-editor {
+    color: var(--textoPrincipal);
+    font-size: 75%;
+    font-family: Arial;
+    font-weight: normal;
+}
+
+.ql-editor.ql-blank::before {
+    color: var(--textoPrincipal);
+    font-style: normal;
+}
+
+.ql-size-small {
+    font-size: 0.75em;
+}
+
+.ql-size-large {
+    font-size: 1.5em;
+}
+
+.ql-size-huge {
+    font-size: 2.5em;
+}
+
+.imgAtraso {
+    height: 2vh;
+    margin-right: .5vh;
+}
+
+#config {
+    background-color: var(--fundoTerciario);
+    border-radius: 2vh;
+    box-shadow: 0px 0px 10px 0px #0000003a;
+    color: white;
+    height: 70vh;
+    margin: 0px 5vw;
+}
+
+.calendario {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.2vw;
+
+}
+
+.dia {
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+    height: 4em;
+    width: auto;
+    position: relative;
+    text-align: center;
+    padding-top: 0.5em;
+    font-size: 1em;
+    background: var(--fundoSecundario);
+}
+
+.bolinha {
+    position: relative;
+    background: var(--corPrincipal);
+    color: white;
+    font-size: 1em;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    line-height: 1.5em;
+    justify-self: center;
+    align-self: center;
+}
+
+.calendarioPai {
+    font-size: 0.9em;
+    background-color: var(--fundoPrincipal);
+    border-radius: 2vh;
+    box-shadow: 0px 0px 10px 0px #0000003a;
+    color: white;
+    max-height: auto;
+
+    padding: 2vh 1vw;
+}
+
+.nTaPai {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nTaT,
+.nTaP,
+.nTaA {
+    background-color: var(--fundoPrincipal);
+    border-radius: 2vh;
+    box-shadow: 0px 0px 10px 0px #0000003a;
+    color: white;
+    padding: 2vh 1vw;
+    width: 15vw;
+    height: 15vh;
+    text-align: center;
+}
+
+#dashboard {
+    padding: 2vh 5vw;
+}
+
+.diasSPai {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5vh 1vw;
+}
+
+.prevT {
+    font-size: 0.9em;
+    background-color: var(--fundoPrincipal);
+    border-radius: 2vh;
+    box-shadow: 0px 0px 10px 0px #0000003a;
+    color: white;
+    max-height: auto;
+    padding: 2vh 1vw;
+}
+
+.prevT {
+    margin: 2vh 0vw;
+}
